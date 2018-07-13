@@ -1,7 +1,9 @@
 # OSVC BUI Example with Vue.js
 
 ## Acknowledgement 
+
 [Styling and card borrowed from this code pen.](https://codepen.io/kathykato/pen/xzRQyp	)
+
 [I borrowed and modified the center pane code from this example.](http://communities.rightnow.com/posts/96b46db52c)
 
 ## Installation
