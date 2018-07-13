@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>Hello World - Content Pane Context</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="./styles.css">
+	<head>
+	<body>
+		<div class="container">		
+			<div id="container">
+			  <blog-card-container></blog-card-container>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="https://unpkg.com/vue"></script>
+
+	<script type="text/x-template" id="blog-card-container">
+		<div>
+			<div v-for="photo in photoCards[currentIndex]">
+				<blog-card :title="photo.title" :image="photo.url"></blog-card>
+			</div>
+			<button :disabled="currentIndex == 0" v-on:click="currentIndex -= 1">Previous Page</button>
+			<button :disabled="currentIndex == photoCards.length - 1" v-on:click="currentIndex += 1">Next Page</button>
+		</div>
+	</script>
+
+	<script type="text/x-template" id="blog-card">
+		<a class="card-link" href="#">
+		  <article class="blog-card">
+		    <img class="post-image" :src="image" />
+		    <div class="article-details">
+		      <h3 class="post-title">{{ title }}</h3>
+		    </div>
+		  </article>
+		</a>
+	</script>
+
+
+	<script type="text/javascript">
+		// Function to fetch photo data
+		async function fetchPhotos(){
+			let response = await fetch('https://jsonplaceholder.typicode.com/photos');
+			let photosJson = await response.json();
+
+			var i,j,pagedArray = [],chunk = 10;
+			for (i=0, j=photosJson.length; i<j; i+=chunk) {
+			    pagedArray.push(photosJson.slice(i,i+chunk));
+			}
+			
+			return pagedArray;
+		}
+
+		// Component for fetching photo data
+		// and paging the data
+		Vue.component('blog-card-container', {
+			template: '#blog-card-container',
+			data: ()=> ({
+				photoCards: [],
+				currentIndex: 0
+			}),
+		  	beforeCreate: function(){
+				fetchPhotos().then((json)=>{
+					this.photoCards = json;
+					console.log(this.photoCards);
+				});
+		  	},
+		});
+
+
+		Vue.component('blog-card', {
+			template: '#blog-card',
+			props:[ "title", "image" ]
+		});
+		
+		new Vue({
+		  el: '#container',
+		});
+
+
+	</script>
+</html>
