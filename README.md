@@ -11,7 +11,7 @@ Download the code into a folder; I would use git:
 	
 	$ git clone https://github.com/rajangdavis/osvc_bui_example.git
 
-(Follow this example starting at "Extension Setup")[http://communities.rightnow.com/posts/7b282b1f2e]
+[Follow this example starting at "Extension Setup"](http://communities.rightnow.com/posts/7b282b1f2e)
 
 The major differences:
 1. Select "Console" as the extension type
